@@ -143,6 +143,38 @@ related_indicator: The indicator code being affected
 
 | File | Purpose |
 |------|---------|
-| `ethiopia_fi_unified_data.csv` | The data (56 records) |
+| `ethiopia_fi_unified_data.csv` | The data (72 records after enrichment) |
 | `reference_codes.csv` | Valid codes for each field |
 | `SCHEMA_DESIGN.md` | Detailed schema documentation |
+
+---
+
+## Project Structure
+
+```
+ethiopia-fi-forecast/
+├── .github/workflows/     # CI/CD workflows
+├── data/
+│   ├── raw/               # Source datasets
+│   └── processed/         # Analysis-ready data
+├── notebooks/             # Jupyter notebooks for EDA
+├── src/                   # Source code
+├── dashboard/             # Dashboard application
+├── tests/                 # Unit tests
+├── models/                # Trained models
+├── reports/
+│   └── figures/           # Generated visualizations
+└── requirements.txt       # Python dependencies
+```
+
+## Tasks Completed
+
+- **Task 1:** Data Exploration and Enrichment
+  - Added 23 impact links connecting events to indicators
+  - Added 4 new observations and 2 new events
+  - Dataset expanded from 43 to 72 records
+
+- **Task 2:** Exploratory Data Analysis
+  - Comprehensive EDA with 17 visualizations
+  - 7 key insights documented
+  - Data quality assessment completed
