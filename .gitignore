@@ -28,7 +28,8 @@ ENV/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-*.ipynb
+# Allow notebooks in notebooks/ directory
+!notebooks/*.ipynb
 
 # IDE
 .vscode/
