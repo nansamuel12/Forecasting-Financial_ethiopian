@@ -17,9 +17,21 @@ sns.set_palette("husl")
 # Create output directory
 Path("reports/figures").mkdir(parents=True, exist_ok=True)
 
-# Load data
-data_path = Path("data/raw/ethiopia_fi_unified_data - ethiopia_fi_unified_data.csv")
-df = pd.read_csv(data_path)
+# Load data with error handling
+try:
+    data_path = Path("data/raw/ethiopia_fi_unified_data - ethiopia_fi_unified_data.csv")
+    if not data_path.exists():
+        raise FileNotFoundError(f"Data file not found: {data_path}")
+    df = pd.read_csv(data_path)
+except FileNotFoundError as e:
+    print(f"✗ Error: {e}")
+    raise
+except pd.errors.EmptyDataError:
+    print("✗ Error: Data file is empty")
+    raise
+except Exception as e:
+    print(f"✗ Error loading data: {e}")
+    raise
 
 print("=" * 80)
 print("ETHIOPIA FI FORECAST - EXPLORATORY DATA ANALYSIS")
@@ -27,10 +39,20 @@ print("=" * 80)
 print(f"\nDataset loaded: {len(df)} records")
 print(f"Columns: {len(df.columns)}\n")
 
-# Prepare observations dataframe
-obs_df = df[df['record_type'] == 'observation'].copy()
-obs_df['observation_date'] = pd.to_datetime(obs_df['observation_date'], errors='coerce')
-obs_df = obs_df.dropna(subset=['observation_date']).sort_values('observation_date')
+# Prepare observations dataframe with error handling
+try:
+    obs_df = df[df['record_type'] == 'observation'].copy()
+    if len(obs_df) == 0:
+        raise ValueError("No observations found in dataset")
+    
+    obs_df['observation_date'] = pd.to_datetime(obs_df['observation_date'], errors='coerce')
+    obs_df = obs_df.dropna(subset=['observation_date']).sort_values('observation_date')
+    
+    if len(obs_df) == 0:
+        raise ValueError("No observations with valid dates found")
+except Exception as e:
+    print(f"✗ Error preparing observations: {e}")
+    raise
 
 # ============================================================================
 # 1. DATASET OVERVIEW

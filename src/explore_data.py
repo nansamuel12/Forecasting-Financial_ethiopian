@@ -4,11 +4,33 @@ Data exploration script for Ethiopia FI Unified Data
 import pandas as pd
 import numpy as np
 from pathlib import Path
+import sys
 
-# Load data
-data_dir = Path("data/raw")
-df = pd.read_csv(data_dir / "ethiopia_fi_unified_data - ethiopia_fi_unified_data.csv")
-ref_codes = pd.read_csv(data_dir / "reference_codes - reference_codes.csv")
+# Load data with error handling
+try:
+    data_dir = Path("data/raw")
+    data_file = data_dir / "ethiopia_fi_unified_data - ethiopia_fi_unified_data.csv"
+    ref_file = data_dir / "reference_codes - reference_codes.csv"
+    
+    if not data_file.exists():
+        raise FileNotFoundError(f"Data file not found: {data_file}")
+    if not ref_file.exists():
+        raise FileNotFoundError(f"Reference codes file not found: {ref_file}")
+    
+    df = pd.read_csv(data_file)
+    ref_codes = pd.read_csv(ref_file)
+    
+    print(f"✓ Data loaded successfully: {len(df)} records")
+    print(f"✓ Reference codes loaded: {len(ref_codes)} codes")
+except FileNotFoundError as e:
+    print(f"✗ Error: {e}", file=sys.stderr)
+    sys.exit(1)
+except pd.errors.EmptyDataError:
+    print("✗ Error: Data file is empty", file=sys.stderr)
+    sys.exit(1)
+except Exception as e:
+    print(f"✗ Error loading data: {e}", file=sys.stderr)
+    sys.exit(1)
 
 print("=" * 80)
 print("ETHIOPIA FI UNIFIED DATA - EXPLORATION REPORT")

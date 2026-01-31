@@ -6,9 +6,25 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime
 
-# Load existing data
-data_dir = Path("data/raw")
-df = pd.read_csv(data_dir / "ethiopia_fi_unified_data - ethiopia_fi_unified_data.csv")
+# Load existing data with error handling
+try:
+    data_dir = Path("data/raw")
+    data_file = data_dir / "ethiopia_fi_unified_data - ethiopia_fi_unified_data.csv"
+    
+    if not data_file.exists():
+        raise FileNotFoundError(f"Data file not found: {data_file}")
+    
+    df = pd.read_csv(data_file)
+    print(f"✓ Loaded existing dataset: {len(df)} records")
+except FileNotFoundError as e:
+    print(f"✗ Error: {e}")
+    raise
+except pd.errors.EmptyDataError:
+    print("✗ Error: Data file is empty")
+    raise
+except Exception as e:
+    print(f"✗ Error loading data: {e}")
+    raise
 
 # Get the next record ID
 def get_next_id(prefix, df):
