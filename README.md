@@ -178,3 +178,72 @@ ethiopia-fi-forecast/
   - Comprehensive EDA with 17 visualizations
   - 7 key insights documented
   - Data quality assessment completed
+
+- **Task 3:** Event Impact Modeling
+  - Event-indicator association matrix
+  - Impact modeling function with temporal dynamics
+  - Model validation against historical data
+
+- **Task 4:** Forecasting Access and Usage
+  - Trend regression models (linear and log)
+  - Event-augmented forecasts for 2025-2027
+  - Scenario analysis (optimistic, base, pessimistic)
+
+- **Task 5:** Dashboard Development
+  - Interactive Streamlit dashboard
+  - Multiple pages: Overview, Trends, Forecasts, Inclusion Projections
+  - At least 4 interactive visualizations
+
+---
+
+## Running the Dashboard
+
+### Prerequisites
+
+Install required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+### Starting the Dashboard
+
+Navigate to the project root directory and run:
+```bash
+streamlit run dashboard/app.py
+```
+
+The dashboard will open in your default web browser at `http://localhost:8501`
+
+### Dashboard Features
+
+**Overview Page:**
+- Key metrics summary cards (Account Ownership, Mobile Money, P2P/ATM Ratio)
+- Growth rate highlights
+- P2P/ATM crossover visualization
+
+**Trends Page:**
+- Interactive time series plots with date range selector
+- Multi-indicator comparison
+- Channel comparison view (P2P vs ATM)
+- Data download functionality
+
+**Forecasts Page:**
+- Forecast visualizations with confidence intervals
+- Model selection (Event-Augmented, Trend Only, Both)
+- Key projected milestones
+- Forecast tables
+
+**Inclusion Projections Page:**
+- Financial inclusion rate projections
+- Progress toward 60% target visualization
+- Scenario selector (Optimistic, Base, Pessimistic)
+- Answers to consortium's key questions
+- Projection data download
+
+### Troubleshooting
+
+If you encounter issues:
+1. Ensure all dependencies are installed: `pip install -r requirements.txt`
+2. Verify the data file exists: `data/raw/ethiopia_fi_unified_data_enriched.csv`
+3. Check that you're running from the project root directory
+4. For port conflicts, use: `streamlit run dashboard/app.py --server.port 8502`
