@@ -5,6 +5,7 @@ Adds impact_links, additional observations, and events
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
+from src.utils import get_next_id
 
 # Load existing data with error handling
 try:
@@ -25,15 +26,6 @@ except pd.errors.EmptyDataError:
 except Exception as e:
     print(f"✗ Error loading data: {e}")
     raise
-
-# Get the next record ID
-def get_next_id(prefix, df):
-    """Get next ID in sequence"""
-    existing = df[df['record_id'].str.startswith(prefix)]['record_id']
-    if len(existing) == 0:
-        return f"{prefix}_0001"
-    max_num = max([int(x.split('_')[1]) for x in existing])
-    return f"{prefix}_{max_num + 1:04d}"
 
 # Track new records for documentation
 new_records = []
