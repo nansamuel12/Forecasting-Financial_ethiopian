@@ -194,6 +194,11 @@ ethiopia-fi-forecast/
   - Multiple pages: Overview, Trends, Forecasts, Inclusion Projections
   - At least 4 interactive visualizations
 
+- **Task 6:** Refactoring & Testing
+  - Refactored core utilities into `src/utils.py`
+  - Added comprehensive unit tests for ID generation logic
+  - Established testing framework using `pytest`
+
 ---
 
 ## Running the Dashboard
